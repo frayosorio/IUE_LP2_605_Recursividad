@@ -34,7 +34,7 @@ public class FrmMCD extends JFrame {
         btnCalcular.setBounds(10, 70, 100, 25);
         getContentPane().add(btnCalcular);
         btnCalcular.addActionListener(evt -> {
-                calcular();
+            calcular();
         });
 
         txtResultado = new JTextField();
@@ -50,7 +50,31 @@ public class FrmMCD extends JFrame {
     }
 
     private void calcular() {
+// obtener los datos de entrada
+        int numero1 = Integer.parseInt(txtNumero1.getText());
+        int numero2 = Integer.parseInt(txtNumero2.getText());
 
+        //proceso
+        int residuo = numero1 % numero2;
+        while (residuo != 0) {
+            numero1 = numero2;
+            numero2 = residuo;
+            residuo = numero1 % numero2;
+        }
+
+        //mostrar el resultado ITERATIVO
+        txtResultado.setText(String.valueOf(numero2));
+
+        //mostrar el resultado RECURSIVO
+        txtResultadoR.setText(String.valueOf(mcd(numero1, numero2)));
+    }
+
+    private int mcd(int n1, int n2) {
+        if (n2 == 0) {
+            return n1;
+        } else {
+            return mcd(n2, n1 % n2);
+        }
     }
 
 }
